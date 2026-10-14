@@ -1,0 +1,240 @@
+body {
+  background-color: #f9f9f9;
+  color: #363636;
+}
+a {
+  color: #171717;
+}
+a:hover {
+  color: #000000;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #030303;
+}
+.sp-megamenu-parent >li.active>a,
+.sp-megamenu-parent >li:hover>a {
+  background: rgba(0,0,0,0.04);
+  color: #171717;
+}
+.sp-megamenu-parent >li.active>a:after,
+.sp-megamenu-parent >li:hover>a:after {
+  -webkit-transform: translateX(-50%) scaleX(1);
+  transform: translateX(-50%) scaleX(1);
+}
+.sp-megamenu-parent .sp-dropdown li.sp-menu-item >a:hover {
+  background: #171717;
+}
+.sp-megamenu-parent .sp-dropdown li.sp-menu-item.active>a {
+  color: #171717;
+}
+#offcanvas-toggler >i {
+  color: #000;
+}
+#offcanvas-toggler >i:hover {
+  color: #171717;
+}
+.offcanvas-menu .offcanvas-inner .sp-module ul > li:hover >a,
+.offcanvas-menu .offcanvas-inner .sp-module ul > li.active >a {
+  background: rgba(0,0,0,0.2);
+}
+.offcanvas-menu .offcanvas-inner .sp-module .search input:hover,
+.offcanvas-menu .offcanvas-inner .sp-module .search input:focus {
+  border: 1px solid #171717;
+}
+.btn-primary,
+.sppb-btn-primary {
+  border-color: #080808;
+  background-color: #171717;
+}
+.btn-primary:hover,
+.sppb-btn-primary:hover {
+  border-color: #000000;
+  background-color: #000000;
+}
+ul.social-icons >li a:hover {
+  color: #171717;
+}
+.layout-boxed .body-innerwrapper {
+  background: #f9f9f9;
+}
+.sp-module ul >li >a {
+  color: #363636;
+}
+.sp-module ul >li >a:hover {
+  color: #171717;
+}
+.sp-module .latestnews >div >a {
+  color: #363636;
+}
+.sp-module .latestnews >div >a:hover {
+  color: #171717;
+}
+.sp-module .tagscloud .tag-name:hover {
+  background: #171717;
+}
+.search .btn-toolbar button {
+  background: #171717;
+}
+.post-format {
+  background: #171717;
+}
+.voting-symbol span.star.active:before {
+  color: #171717;
+}
+.sp-rating span.star:hover:before,
+.sp-rating span.star:hover ~ span.star:before {
+  color: #000000;
+}
+.entry-link,
+.entry-quote {
+  background: #171717;
+}
+blockquote {
+  border-color: #171717;
+}
+.carousel-left:hover,
+.carousel-right:hover {
+  background: #171717;
+}
+.sppb-addon-latest-posts .latest-posts .sppb-row >.sppb-column.latest-post:nth-child(1) >div:after {
+  background: #171717;
+}
+.sppb-addon-latest-posts .latest-posts .sppb-row >.sppb-column.latest-post:nth-child(2) >div:after {
+  background: #171717;
+}
+.sp-comingsoon body {
+  background-color: #171717;
+}
+.pagination>li>a,
+.pagination>li>span {
+  color: #363636;
+}
+.pagination>li>a:hover,
+.pagination>li>a:focus,
+.pagination>li>span:hover,
+.pagination>li>span:focus {
+  color: #363636;
+}
+.pagination>.active>a,
+.pagination>.active>span {
+  border-color: #171717;
+  background-color: #171717;
+}
+.pagination>.active>a:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:hover,
+.pagination>.active>span:focus {
+  border-color: #171717;
+  background-color: #171717;
+}
+#sp-header.has-slideshow.menu-fixed-out .sp-megamenu-parent >li.active>a,
+#sp-header.has-slideshow.menu-fixed-out .sp-megamenu-parent >li:hover>a,
+#sp-header.has-slideshow.menu-fixed-out #offcanvas-toggler >i:hover {
+  color: #171717;
+}
+.sp-megamenu-parent >li >a:after {
+  background-color: #171717;
+}
+.offcanvas-menu {
+  background: #171717;
+}
+.sppb-addon-animated-headlines-bg .cd-intro .cd-headline .cd-words-wrapper::after {
+  background-color: #171717;
+}
+.sppb-addon-animated-headlines-bg .cd-intro .cd-headline .cd-words-wrapper.selected {
+  background-color: #171717;
+}
+.sppb-slider-wrapper.sppb-slider-fullwidth-wrapper .sppb-slideshow-fullwidth-item-bg .container .sppb-slideshow-fullwidth-item-text a.sppb-slideshow-fullwidth-read-more:hover {
+  border-color: #171717;
+}
+.sppb-slider-wrapper.sppb-slider-fullwidth-wrapper .sppb-slideshow-fullwidth-item-bg .container .sppb-slideshow-fullwidth-item-text a.sppb-slideshow-fullwidth-read-more:hover span {
+  color: #171717;
+}
+.sppb-teams-wrapper .sppb-teams .sppb-team .sppb-team-wrapper:hover {
+  background-color: #171717;
+}
+.sppb-addon-teams .sppb-team-info h3 {
+  color: #171717;
+}
+.sppb-addon-teams .sppb-team-info i {
+  color: #363636;
+}
+.sppb-addon-teams .sppb-team-info i:hover {
+  color: #171717;
+}
+.sppb-addon-teams .sppb-team-social-icons a i:hover {
+  border-color: #171717;
+}
+#features-wrapper .sppb-addon-feature i {
+  color: #171717;
+}
+#features-wrapper .sppb-addon-feature:hover h3.sppb-feature-box-title {
+  color: #171717 !important;
+}
+#about-us-wrapper .sppb-content-holder h3.sppb-image-content-title {
+  color: #171717;
+}
+#about-us-wrapper .sppb-content-holder a.sppb-btn-link {
+  color: #171717;
+  border-bottom: 2px solid #171717;
+}
+#about-us-wrapper .sppb-content-holder a.sppb-btn-link:hover {
+  text-decoration: none;
+  color: #000000;
+}
+.services-modal a.popup-youtube:hover i {
+  color: #171717;
+  border-color: #171717;
+}
+.qubic-service .sppb-addon-feature .sppb-addon-content:hover i,
+.qubic-service .sppb-addon-feature .sppb-addon-content:hover h3.sppb-feature-box-title {
+  color: #171717;
+  transition: 400ms;
+}
+#mod-sp-simpleportfolio.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li.active > a,
+#mod-sp-simpleportfolio.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li:hover > a {
+  color: #171717;
+}
+#mod-sp-simpleportfolio.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-overlay-wrapper .sp-simpleportfolio-overlay {
+  background-color: rgba(23,23,23,0.8);
+}
+.qubic-animated-number,
+.qubic-testimonial-wrapper {
+  background-color: #171717;
+}
+.pricing-table {
+  background: #171717;
+}
+.pricing-table .sppb-pricing-box .sppb-pricing-footer .sppb-btn-default:hover {
+  color: #171717;
+}
+.qubic-blog .latest-post .latest-post-inner:hover h2.entry-title a {
+  color: #171717;
+}
+.blog article.item p.readmore a.btn {
+  color: #171717;
+}
+.blog article.item p.readmore a.btn:hover {
+  color: #000000;
+}
+.qubic-contact h3.sppb-title-heading {
+  color: #171717;
+}
+.qubic-contact .sppb-addon-ajax-contact .sppb-btn-success:hover {
+  color: #171717;
+  border: 1px solid #171717;
+}
+.qubic-bottom {
+  background-color: #171717;
+}
+.qubic-bottom .qubic-bottom-social .sppb-social-icons >span:hover a {
+  color: #363636;
+}
+#sp-footer {
+  background-color: #030303;
+}

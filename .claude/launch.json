@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "archive-joomla",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "http-server@14.1.1", "archive/www", "-p", "8080", "-c-1", "-s"],
+      "port": 8080
+    }
+  ]
+}
