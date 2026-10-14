@@ -1,0 +1,12 @@
+{
+  "name": "aiolosbarbershop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "images": "node tools/optimize-images.mjs",
+    "serve": "npx -y http-server@14.1.1 site -p 8081 -c-1 -s"
+  },
+  "devDependencies": {
+    "sharp": "0.33.5"
+  }
+}
