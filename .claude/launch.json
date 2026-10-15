@@ -8,9 +8,9 @@
       "port": 8080
     },
     {
-      "name": "site",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["-y", "http-server@14.1.1", "site", "-p", "8081", "-c-1", "-s"],
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
       "port": 8081
     }
   ]

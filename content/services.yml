@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────
+#  SERVICES & PRICES  —  this is the only file you need to edit
+# ─────────────────────────────────────────────────────────────
+#
+#  How it works:
+#    - A line starting with "- category:" starts a new group.
+#    - Each "- name:" under "services:" is one service.
+#    - price:    just the number (20 becomes €20 on the site).
+#                You can also write text, e.g.  price: from 15
+#    - duration: free text, e.g.  30 min
+#
+#  Rules (please keep them, otherwise the build will stop and tell you where):
+#    - Keep the spaces at the start of lines exactly as they are.
+#      Use spaces, not Tab.
+#    - If a name contains ": " or " #", put it in double quotes:
+#          name: "Cut: classic"
+#    - Lines starting with # are comments and are ignored.
+#
+#  The order here is the order on the site
+#  (on wide screens: two columns, left → right, top → bottom).
+
+- category: Haircuts
+  services:
+    - name: Women's Haircut
+      duration: 60 min
+      price: 20
+
+    - name: Men's Haircut & Beard Trim
+      duration: 30 min
+      price: 18
+
+    - name: Men's Haircut
+      duration: 30 min
+      price: 15
+
+    - name: Kid's Haircut
+      duration: 30 min
+      price: 12
+
+- category: Shaving
+  services:
+    - name: Straight Razor Shave
+      duration: 45 min
+      price: 12
+
+    - name: Electric Razor Shave
+      duration: 30 min
+      price: 10
+
+- category: Beard
+  services:
+    - name: Beard Trimming
+      duration: 15 min
+      price: 7
+
+- category: Other
+  services:
+    - name: White Hair Covering
+      duration: 30 min
+      price: 10
+
+    - name: Detox Therapy
+      duration: 15 min
+      price: 8

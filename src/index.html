@@ -21,7 +21,7 @@
   <link rel="preload" href="assets/fonts/roboto-slab-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/hero-1280.webp"
         imagesrcset="assets/img/hero-800.webp 800w, assets/img/hero-1280.webp 1280w, assets/img/hero-1920.webp 1920w" imagesizes="100vw">
-  <link rel="stylesheet" href="assets/css/style.css">
+  {{styles}}
 
   <script type="application/ld+json">
   {
@@ -32,7 +32,7 @@
     "image": "https://www.aiolosbarbershop.gr/assets/img/og-image.jpg",
     "telephone": "+302111164942",
     "email": "aiolosbarbershop@gmail.com",
-    "priceRange": "€7–€20",
+    "priceRange": "{{priceRange}}",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Tritonos 38",
@@ -186,38 +186,7 @@
         <svg class="board__corner board__corner--br" aria-hidden="true"><use href="#corner"/></svg>
 
         <div class="board__grid">
-          <div class="menu-group">
-            <h3>Haircuts</h3>
-            <ul class="menu">
-              <li><div class="menu__row"><span class="menu__name">Women's Haircut</span><span class="menu__dots"></span><span class="menu__price">€20</span></div><div class="menu__meta">60 min</div></li>
-              <li><div class="menu__row"><span class="menu__name">Men's Haircut &amp; Beard Trim</span><span class="menu__dots"></span><span class="menu__price">€18</span></div><div class="menu__meta">30 min</div></li>
-              <li><div class="menu__row"><span class="menu__name">Men's Haircut</span><span class="menu__dots"></span><span class="menu__price">€15</span></div><div class="menu__meta">30 min</div></li>
-              <li><div class="menu__row"><span class="menu__name">Kid's Haircut</span><span class="menu__dots"></span><span class="menu__price">€12</span></div><div class="menu__meta">30 min</div></li>
-            </ul>
-          </div>
-
-          <div class="menu-group">
-            <h3>Shaving</h3>
-            <ul class="menu">
-              <li><div class="menu__row"><span class="menu__name">Straight Razor Shave</span><span class="menu__dots"></span><span class="menu__price">€12</span></div><div class="menu__meta">45 min</div></li>
-              <li><div class="menu__row"><span class="menu__name">Electric Razor Shave</span><span class="menu__dots"></span><span class="menu__price">€10</span></div><div class="menu__meta">30 min</div></li>
-            </ul>
-          </div>
-
-          <div class="menu-group">
-            <h3>Beard</h3>
-            <ul class="menu">
-              <li><div class="menu__row"><span class="menu__name">Beard Trimming</span><span class="menu__dots"></span><span class="menu__price">€7</span></div><div class="menu__meta">15 min</div></li>
-            </ul>
-          </div>
-
-          <div class="menu-group">
-            <h3>Other</h3>
-            <ul class="menu">
-              <li><div class="menu__row"><span class="menu__name">White Hair Covering</span><span class="menu__dots"></span><span class="menu__price">€10</span></div><div class="menu__meta">30 min</div></li>
-              <li><div class="menu__row"><span class="menu__name">Detox Therapy</span><span class="menu__dots"></span><span class="menu__price">€8</span></div><div class="menu__meta">15 min</div></li>
-            </ul>
-          </div>
+          {{services}}
         </div>
 
         <div class="board__foot">

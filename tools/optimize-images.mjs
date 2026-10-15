@@ -1,10 +1,10 @@
-// Builds web-optimized images for site/ from the originals in archive/www.
+// Builds web-optimized images for src/ from the originals in archive/www.
 // Usage: npm run images
 import fs from 'node:fs/promises';
 import sharp from 'sharp';
 
 const SRC = 'archive/www';
-const OUT = 'site/assets/img';
+const OUT = 'src/assets/img';
 await fs.mkdir(OUT, { recursive: true });
 
 const jobs = [

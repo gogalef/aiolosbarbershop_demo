@@ -3,10 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "images": "node tools/optimize-images.mjs",
-    "serve": "npx -y http-server@14.1.1 site -p 8081 -c-1 -s"
+    "build": "node tools/build.mjs",
+    "dev": "node tools/build.mjs --dev",
+    "images": "node tools/optimize-images.mjs"
   },
   "devDependencies": {
-    "sharp": "0.33.5"
+    "html-minifier-terser": "^7.2.0",
+    "sharp": "0.33.5",
+    "yaml": "^2.6.1"
   }
 }

@@ -23,22 +23,52 @@
 
 Запуск локально: конфигурация `archive-joomla` в `.claude/launch.json` (`npx http-server archive/www -p 8080`).
 
-## Новый сайт — `site/`
+## Новый сайт
 
-Чистая статика: один `index.html` + `assets/`. Без jQuery, Bootstrap, Font Awesome и CMS. Можно выкладывать на любой хостинг (Cloudflare Pages, Netlify, обычный FTP).
+Чистая статика без jQuery, Bootstrap, Font Awesome и CMS. Готовый билд можно выкладывать на любой хостинг (Cloudflare Pages, Netlify, обычный FTP).
+
+```
+content/services.yml   ← услуги и цены (единственное, что правится руками)
+src/                   ← исходники: index.html (шаблон), assets/css, fonts, img
+tools/build.mjs        ← сборка
+dist/                  ← готовый продакшен-билд (генерируется, в git не хранится)
+```
+
+| Команда | Что делает |
+|---|---|
+| `npm install` | один раз после клонирования |
+| `npm run build` | собирает `dist/` — его и выкладывать на хостинг |
+| `npm run dev` | собирает, пересобирает при любом изменении в `src/` и `content/`, раздаёт на http://localhost:8081 |
+| `npm run images` | пересоздаёт картинки в `src/assets/img` из оригиналов в `archive/` |
+
+Что делает сборка: проверяет `services.yml` (при ошибке — сообщение с номером строки или названием услуги, а `dist/` остаётся прежним), вставляет прайс в HTML, считает диапазон цен для schema.org, встраивает CSS в страницу, минифицирует HTML/CSS/JS, копирует шрифты и картинки, генерирует `robots.txt` и `sitemap.xml`.
+
+### Как поменять цены и услуги
+
+Открыть [content/services.yml](content/services.yml) — инструкция есть в начале файла. Коротко:
+
+```yaml
+- category: Haircuts          # новая группа
+  services:
+    - name: Men's Haircut     # услуга
+      duration: 30 min        # необязательно
+      price: 15               # → «€15»; можно текстом: from 15 → «from €15»
+```
+
+Потом `npm run build` и выложить `dist/`. Если сайт будет на Cloudflare Pages или Netlify с подключённым git-репозиторием, достаточно сохранить файл в репозиторий (хоть через веб-интерфейс GitHub) — хостинг сам запустит `npm run build`. Следующий шаг при желании — Decap CMS: веб-форма для редактирования этого же файла, без git и текстовых редакторов.
+
+### Дизайн и техника
 
 - **Шрифты** (свои файлы, без запросов к Google):
   - *Sancreek* — заголовки разделов. Узкий викторианский шрифт со шпорами на штрихах, как надпись «ΑΙΟΛΟΣ» на логотипе.
   - *Roboto Slab* — подписи, меню и основной текст. Брусковый шрифт, как «BARBER SHOP» на ленте логотипа, но спокойный и хорошо читается. Есть греческий (нужен для адреса).
 - **Прайс** — HTML-текст в стиле таблички логотипа: двойная рамка, уголки-орнаменты, лента «Price List», точечные выноски до цены.
-- **Картинки** — WebP, адаптивные размеры. Пересобрать из оригиналов: `npm install`, затем `npm run images` ([tools/optimize-images.mjs](tools/optimize-images.mjs)).
+- **Картинки** — WebP, адаптивные размеры ([tools/optimize-images.mjs](tools/optimize-images.mjs)).
 - **Карта** — встроенная Google Maps без ключа (координаты из старой карты Snazzy Maps), загружается лениво.
 - Добавлены meta description, Open Graph и разметка schema.org (HairSalon).
 - Убраны: видео-фон (7 МБ) и мёртвые пункты меню About/Works.
 
 Вес первой загрузки на мобильном — около 300 КБ (у старого сайта было больше 10 МБ).
-
-Запуск локально: `npm run serve` → http://localhost:8081
 
 ## Контент
 
@@ -56,7 +86,7 @@
 - Aiolos Ksenogiannakis — Head Barber and Founder, 12+ лет опыта, специализация — женские стрижки. IG: aiolos_ksenogiannakis
 - John Karakostas — Apprentice Barber and Co-Founder. IG: j0nk4r2_666
 
-**Услуги и цены** (на старом сайте были только картинкой `images/2023/09/25/aiolos-barbershop-services.png`, скриншот из Setmore):
+**Услуги и цены** — как было на старом сайте, актуальная версия теперь в `content/services.yml` (раньше они были только картинкой `images/2023/09/25/aiolos-barbershop-services.png`, скриншот из Setmore):
 
 | Категория | Услуга | Время | Цена |
 |---|---|---|---|
