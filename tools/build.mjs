@@ -126,6 +126,8 @@ async function build() {
   await fs.writeFile(`${DIST}/index.html`, html);
   await copyDir(`${SRC}/assets/fonts`, `${DIST}/assets/fonts`);
   await copyDir(`${SRC}/assets/img`, `${DIST}/assets/img`);
+  // favicons live at the site root: browsers and bots request /favicon.ico by default
+  for (const f of ['favicon.ico', 'favicon.svg']) await fs.copyFile(`${SRC}/${f}`, `${DIST}/${f}`);
   await fs.writeFile(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}sitemap.xml\n`);
   await fs.writeFile(`${DIST}/sitemap.xml`,
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
@@ -151,7 +153,7 @@ async function safeBuild() {
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
   '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml',
-  '.woff2': 'font/woff2', '.txt': 'text/plain', '.xml': 'application/xml',
+  '.woff2': 'font/woff2', '.txt': 'text/plain', '.xml': 'application/xml', '.ico': 'image/x-icon',
 };
 
 function serve(port) {

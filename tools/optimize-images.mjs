@@ -34,11 +34,6 @@ const jobs = [
         .extend({ top: 10, bottom: 10, left: 10, right: 10, background: '#171717' })
         .png({ compressionLevel: 9 }),
   },
-  {
-    src: `${SRC}/wp-content/uploads/2019/09/AIOLOS_final_logo.png`,
-    out: 'favicon-32.png',
-    run: (img) => img.resize(32, 32, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png(),
-  },
   // Barbers: square crops for round portraits
   {
     src: `${SRC}/images/2023/09/25/aiolos-barber.jpg`,
