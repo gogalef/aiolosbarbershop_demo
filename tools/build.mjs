@@ -11,6 +11,7 @@ import { minify } from 'html-minifier-terser';
 const SRC = 'src';
 const DIST = 'dist';
 const SERVICES = 'content/services.yml';
+const REVIEWS = 'content/reviews.json'; // written by tools/fetch-reviews.mjs, not kept in git
 const SITE_URL = 'https://www.aiolosbarbershop.gr/';
 
 class ContentError extends Error {}
@@ -78,6 +79,21 @@ function priceRange(data) {
   return min === max ? `€${min}` : `€${min}–€${max}`;
 }
 
+// ---------- reviews.json ----------
+
+// null when there is nothing to show: the build then drops the Reviews section
+async function loadReviews() {
+  let text;
+  try {
+    text = await fs.readFile(REVIEWS, 'utf8');
+  } catch {
+    return null;
+  }
+  const data = JSON.parse(text);
+  const reviews = (data.reviews ?? []).filter((r) => r?.name && r?.text && r?.rating);
+  return reviews.length ? { ...data, reviews } : null;
+}
+
 // ---------- build ----------
 
 async function copyDir(from, to) {
@@ -100,6 +116,7 @@ async function dirSize(dir) {
 async function build() {
   const t0 = Date.now();
   const services = await loadServices();
+  const reviews = await loadReviews();
 
   // CSS is inlined into the page (one request less); fix relative urls for the new location
   const css = (await fs.readFile(`${SRC}/assets/css/style.css`, 'utf8')).replaceAll('url(../', 'url(assets/');
@@ -109,6 +126,7 @@ async function build() {
     .replace('{{styles}}', () => `<style>${css}</style>`)
     .replace('{{services}}', () => renderServices(services))
     .replace('{{priceRange}}', () => priceRange(services));
+  if (!reviews) html = html.replace(/<!-- reviews -->[\s\S]*?<!-- \/reviews -->/g, '');
   const leftover = html.match(/\{\{\w+\}\}/);
   if (leftover) throw new Error(`Unknown placeholder ${leftover[0]} in ${SRC}/index.html`);
 
@@ -128,6 +146,8 @@ async function build() {
   await copyDir(`${SRC}/assets/img`, `${DIST}/assets/img`);
   // favicons live at the site root: browsers and bots request /favicon.ico by default
   for (const f of ['favicon.ico', 'favicon.svg']) await fs.copyFile(`${SRC}/${f}`, `${DIST}/${f}`);
+  // fetched by the page only after load, when the Reviews section is about to scroll into view
+  if (reviews) await fs.writeFile(`${DIST}/assets/reviews.json`, JSON.stringify(reviews));
   await fs.writeFile(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}sitemap.xml\n`);
   await fs.writeFile(`${DIST}/sitemap.xml`,
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
@@ -135,6 +155,7 @@ async function build() {
 
   const count = services.reduce((n, c) => n + c.services.length, 0);
   console.log(`✔ built ${DIST}/ in ${Date.now() - t0} ms — ${services.length} categories, ${count} services, ` +
+    `${reviews ? `${reviews.reviews.length} reviews` : 'no reviews'}, ` +
     `index.html ${(Buffer.byteLength(html) / 1024).toFixed(1)} KB, total ${(await dirSize(DIST) / 1024).toFixed(0)} KB`);
 }
 
@@ -151,7 +172,7 @@ async function safeBuild() {
 // ---------- dev server ----------
 
 const TYPES = {
-  '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
+  '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json',
   '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml',
   '.woff2': 'font/woff2', '.txt': 'text/plain', '.xml': 'application/xml', '.ico': 'image/x-icon',
 };

@@ -1,9 +1,12 @@
-# Builds the site and publishes dist/ to GitHub Pages on every push to main.
+# Builds the site and publishes dist/ to GitHub Pages on every push to main,
+# and every Monday morning to pick up new Google reviews.
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 5 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -27,6 +30,17 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      # never fails: falls back to the reviews already on the live site
+      - name: Fetch Google reviews
+        run: npm run reviews
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          SERPAPI_DATA_ID: ${{ vars.SERPAPI_DATA_ID }}
+          REVIEWS_FALLBACK_URL: ${{ steps.pages.outputs.base_url }}/assets/reviews.json
 
       - run: npm run build
 

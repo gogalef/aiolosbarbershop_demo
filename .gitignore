@@ -1,4 +1,5 @@
 node_modules/
 dist/
+content/reviews.json
 .DS_Store
 Thumbs.db
