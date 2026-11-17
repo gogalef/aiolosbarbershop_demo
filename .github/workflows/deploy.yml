@@ -34,15 +34,12 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v5
 
-      # never fails. SearchApi requests are spent only by the Monday run and "Run workflow";
-      # a push reuses the reviews already on the live site.
+      # never fails: falls back to the reviews already on the live site
       - name: Fetch Google reviews
         run: npm run reviews
         env:
-          # SERPAPI_KEY is the name the secret was first saved under
-          SEARCHAPI_KEY: ${{ secrets.SEARCHAPI_KEY || secrets.SERPAPI_KEY }}
-          SEARCHAPI_DATA_ID: ${{ vars.SEARCHAPI_DATA_ID }}
-          REVIEWS_REFRESH: ${{ github.event_name != 'push' }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          SERPAPI_DATA_ID: ${{ vars.SERPAPI_DATA_ID }}
           REVIEWS_FALLBACK_URL: ${{ steps.pages.outputs.base_url }}/assets/reviews.json
 
       - run: npm run build
