@@ -14,9 +14,26 @@ const MIN_RATING = 4;
 const MAX_REVIEWS = 12;
 const MAX_TEXT = 360;
 
-const KEY = process.env.SERPAPI_KEY;
+// forgive the usual copy-paste extras around the key: spaces, newlines, quotes, "SERPAPI_KEY="
+const RAW_KEY = process.env.SERPAPI_KEY ?? '';
+const KEY = RAW_KEY.trim().replace(/^SERPAPI_KEY\s*=\s*/, '').replace(/^["']|["']$/g, '').trim();
 // Optional: Google's data_id of the place ("0x14a1...:0x..."), skips the lookup request
-const DATA_ID = process.env.SERPAPI_DATA_ID;
+const DATA_ID = process.env.SERPAPI_DATA_ID?.trim();
+
+// In GitHub Actions these also become annotations on the run page (visible without opening the log).
+// Never print the key itself: logs of a public repository are public.
+const notice = (msg) => console.log(process.env.GITHUB_ACTIONS ? `::notice title=Google reviews::${msg.trim()}` : msg);
+const warn = (msg) => console.warn(process.env.GITHUB_ACTIONS ? `::warning title=Google reviews::${msg.trim()}` : msg);
+
+// Checks the key with SerpApi's account endpoint (free, does not use up searches)
+async function checkKey() {
+  const shape = `${KEY.length} chars, ${/^[0-9a-f]{64}$/.test(KEY) ? 'looks like a SerpApi key' : 'NOT 64 hex chars as SerpApi keys are'}` +
+    (KEY !== RAW_KEY ? ', extra characters around it were removed' : '');
+  const res = await fetch(`https://serpapi.com/account.json?api_key=${encodeURIComponent(KEY)}`, { signal: AbortSignal.timeout(15_000) });
+  const acc = await res.json().catch(() => ({}));
+  if (!res.ok || acc.error) throw new Error(`key rejected (${shape}): ${acc.error ?? `HTTP ${res.status}`}`);
+  notice(`SerpApi key OK (${shape}) — plan "${acc.plan_name ?? '?'}", ${acc.plan_searches_left ?? acc.total_searches_left ?? '?'} searches left this month`);
+}
 
 async function serpapi(params) {
   const url = new URL('https://serpapi.com/search.json');
@@ -41,6 +58,7 @@ function clip(text) {
 }
 
 async function fromSerpApi() {
+  await checkKey();
   const dataId = DATA_ID || await findDataId();
   let info, token;
   const raw = [];
@@ -93,16 +111,16 @@ const sources = [
 ];
 
 for (const [name, load] of sources) {
-  if (!load) { console.warn(`  ${name}: skipped (SERPAPI_KEY is not set)`); continue; }
+  if (!load) { warn(`  ${name}: skipped (SERPAPI_KEY is not set)`); continue; }
   try {
     const data = await load();
     await fs.writeFile(OUT, JSON.stringify(data, null, 2) + '\n');
     console.log(`✔ ${OUT}: ${data.reviews.length} reviews from ${name} (fetched ${data.fetched})`);
     process.exit(0);
   } catch (err) {
-    console.warn(`  ${name}: ${err.message}`);
+    warn(`  ${name}: ${err.message}`);
   }
 }
 
 const kept = await fs.access(OUT).then(() => true, () => false);
-console.warn(kept ? `⚠ keeping the existing ${OUT}` : `⚠ no reviews available — the Reviews section will be left out`);
+warn(kept ? `⚠ keeping the existing ${OUT}` : `⚠ no reviews available — the Reviews section will be left out`);
